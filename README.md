@@ -22,4 +22,4 @@ Both apps should offer the same features; build a feature in one, then match it 
 
 ## Status
 
-New, empty project (created 2026-11-09). No app code yet. The feature set is still to be decided.
+No app code yet (created 2026-11-09). The first step is to match the GreywireAndroid foundation (login and home); see `CLAUDE.md` for the details and Mac setup.

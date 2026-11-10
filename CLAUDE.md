@@ -20,7 +20,14 @@ Both apps should offer the same features; build a feature in one, then match it 
 
 ## Status
 
-Created 2026-11-09. **No app code yet.** GreywireAndroid already has its foundation (login and a home screen), so the first job here is to build the same thing in SwiftUI. The Android code is the spec for that foundation; see "First task" below.
+Foundation built 2026-11-10: login and home screens matching GreywireAndroid.
+
+- **Login**: Brand, eyebrow, sign in heading, username/password fields with show/hide, error message, copper sign in button, version number. Validates session on app launch.
+- **Home**: Header with brand and sign out, hero section with username, membership card (member/not member states), pedal cards for Flashover and Switchyard.
+- **Session**: Opens on Home if token saved and valid; otherwise Login. 401 responses clear the session.
+- **Theme**: Dark only, Greywire color palette, Space Grotesk and IBM Plex Mono fonts.
+
+**Future work is tracked in `TODO.md`.**
 
 ## Setting up on a new machine (the Mac)
 

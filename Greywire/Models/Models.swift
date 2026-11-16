@@ -45,6 +45,18 @@ struct MembershipResponse: Decodable, Sendable {
     }
 }
 
+// MARK: - EULA Models
+
+struct EulaStatusResponse: Decodable, Sendable {
+    let accepted: Bool
+    let notificationId: Int?
+    let acceptedAt: String?
+}
+
+struct EulaAcceptResponse: Decodable, Sendable {
+    let accepted: Bool
+}
+
 // MARK: - Auth Result
 
 enum AuthResult<T: Sendable>: Sendable {

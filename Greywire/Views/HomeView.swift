@@ -2,11 +2,13 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var viewModel = HomeViewModel()
+    @State private var showLegal = false
 
     let onLogout: () -> Void
     let onSessionExpired: () -> Void
 
     var body: some View {
+        NavigationStack {
         VStack(spacing: 0) {
             // Header
             GreywireHeader {
@@ -58,6 +60,36 @@ struct HomeView: View {
                         Spacer().frame(height: 16)
                     }
 
+                    Spacer().frame(height: 40)
+
+                    // Legal
+                    SectionDivider()
+                    Eyebrow("Legal")
+                    SectionHeading("Terms and policies")
+                    Spacer().frame(height: 16)
+
+                    NavigationLink {
+                        LegalView()
+                    } label: {
+                        GreywireCard {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Legal Documents")
+                                        .font(.greywireTitle)
+                                        .foregroundStyle(Color.greywireText)
+                                    Text("EULA, Privacy Policy")
+                                        .font(.greywireCaption)
+                                        .foregroundStyle(Color.greywireMuted)
+                                }
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
+                                    .foregroundStyle(Color.greywireMuted)
+                            }
+                        }
+                    }
+                    .buttonStyle(.plain)
+
                     Spacer().frame(height: 24)
                 }
                 .padding(.horizontal, 16)
@@ -72,6 +104,7 @@ struct HomeView: View {
             if expired {
                 onSessionExpired()
             }
+        }
         }
     }
 }

@@ -36,6 +36,14 @@ actor APIClient {
         let _: AuthResult<EmptyResponse> = await post("/api/auth/logout", body: EmptyBody(), authenticated: true)
     }
 
+    func getEulaStatus() async -> AuthResult<EulaStatusResponse> {
+        await get("/api/eula/status", authenticated: true)
+    }
+
+    func acceptEula() async -> AuthResult<EulaAcceptResponse> {
+        await post("/api/eula/accept", body: EmptyBody(), authenticated: true)
+    }
+
     // MARK: - HTTP Methods
 
     private func get<T: Decodable>(_ path: String, authenticated: Bool = false) async -> AuthResult<T> {

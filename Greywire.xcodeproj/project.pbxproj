@@ -15,13 +15,16 @@
 		27C0049203D8EC02F286EADD /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D525D333E9269ADFBA87F449 /* Models.swift */; };
 		35808CDE7B6F3ED08205D5AF /* plexmono_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DAA5BDC51A2204B2D855DD6 /* plexmono_medium.ttf */; };
 		4EFB5E446C8E7D72C0E91606 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DA4996FC7C34773660A245 /* Colors.swift */; };
+		504CF25C798448A7CBCA9E60 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE95C49CA8B1FD52D702AAFA /* PrivacyPolicyView.swift */; };
 		57D92E24C0ABE05FE2559C66 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E650786E4288925DC4A714 /* HomeViewModel.swift */; };
 		58C4AA2C13639ABAC774A09F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D1B633FDD3E073DB715296 /* HomeView.swift */; };
+		5E2DF6ADFF322C9A889EC7DA /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0737F976819F1553DC4C01F7 /* LegalView.swift */; };
 		928E39C2601CA3994F939928 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B4B671BFFCC75079921849 /* LoginView.swift */; };
 		A06EE9058E5541B963094ACC /* spacegrotesk_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06BE117E89F9E1824F2970D9 /* spacegrotesk_bold.ttf */; };
 		B94BAE86D9F889960918BDEC /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E7D6552AFA4F85CADD7DE7 /* KeychainManager.swift */; };
 		D10B2E63C09A6257DA5FA76A /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA28A82B549072FF40474C04 /* Typography.swift */; };
 		D14911DF985FA48EEB86D294 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C43CBC2D80A1FF8602B1A /* LoginViewModel.swift */; };
+		D76C3869CF1AFAF710CE7933 /* EulaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B94426664653E472D8F36A /* EulaView.swift */; };
 		DC05E8FECA4644485A12A133 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336851263B4E10003492EAA /* APIClient.swift */; };
 		EBBF2A32D1D864563456C604 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF80D3305621C291908EFAA /* Config.swift */; };
 		F07C12FF1966BD257A37C351 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339E986576650C9E11F072 /* AuthService.swift */; };
@@ -30,6 +33,8 @@
 
 /* Begin PBXFileReference section */
 		06BE117E89F9E1824F2970D9 /* spacegrotesk_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = spacegrotesk_bold.ttf; sourceTree = "<group>"; };
+		0737F976819F1553DC4C01F7 /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
+		12B94426664653E472D8F36A /* EulaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EulaView.swift; sourceTree = "<group>"; };
 		1336851263B4E10003492EAA /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		21E650786E4288925DC4A714 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		2277046C12B5E080764808FE /* plexmono_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = plexmono_regular.ttf; sourceTree = "<group>"; };
@@ -43,6 +48,7 @@
 		859E286FA1D0B1412645C376 /* Greywire.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Greywire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99D1B633FDD3E073DB715296 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A7E7D6552AFA4F85CADD7DE7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		AE95C49CA8B1FD52D702AAFA /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		B0021B53B57AA3507D13AAF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CA28A82B549072FF40474C04 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		D1091BBB3CE4202E9A82FEE2 /* spacegrotesk_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = spacegrotesk_regular.ttf; sourceTree = "<group>"; };
@@ -84,8 +90,11 @@
 		4592263EE820B383240B28AB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				12B94426664653E472D8F36A /* EulaView.swift */,
 				99D1B633FDD3E073DB715296 /* HomeView.swift */,
+				0737F976819F1553DC4C01F7 /* LegalView.swift */,
 				F6B4B671BFFCC75079921849 /* LoginView.swift */,
+				AE95C49CA8B1FD52D702AAFA /* PrivacyPolicyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -240,14 +249,17 @@
 				F07C12FF1966BD257A37C351 /* AuthService.swift in Sources */,
 				4EFB5E446C8E7D72C0E91606 /* Colors.swift in Sources */,
 				EBBF2A32D1D864563456C604 /* Config.swift in Sources */,
+				D76C3869CF1AFAF710CE7933 /* EulaView.swift in Sources */,
 				0808C40E9F41E7A3CDBE0EE1 /* GreywireApp.swift in Sources */,
 				F2ADD35FC7B5C4E4238BFFB4 /* GreywireComponents.swift in Sources */,
 				58C4AA2C13639ABAC774A09F /* HomeView.swift in Sources */,
 				57D92E24C0ABE05FE2559C66 /* HomeViewModel.swift in Sources */,
 				B94BAE86D9F889960918BDEC /* KeychainManager.swift in Sources */,
+				5E2DF6ADFF322C9A889EC7DA /* LegalView.swift in Sources */,
 				928E39C2601CA3994F939928 /* LoginView.swift in Sources */,
 				D14911DF985FA48EEB86D294 /* LoginViewModel.swift in Sources */,
 				27C0049203D8EC02F286EADD /* Models.swift in Sources */,
+				504CF25C798448A7CBCA9E60 /* PrivacyPolicyView.swift in Sources */,
 				D10B2E63C09A6257DA5FA76A /* Typography.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

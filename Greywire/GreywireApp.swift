@@ -13,6 +13,13 @@ struct GreywireApp: App {
 struct ContentView: View {
     @State private var isLoggedIn = false
     @State private var isCheckingSession = true
+    /// Set once the EULA gate has confirmed acceptance for this sign-in.
+    @State private var eulaAccepted = false
+
+    private func signOut() {
+        isLoggedIn = false
+        eulaAccepted = false
+    }
 
     var body: some View {
         Group {
@@ -23,13 +30,28 @@ struct ContentView: View {
                     ProgressView()
                         .tint(Color.greywireCopper)
                 }
+            } else if isLoggedIn && !eulaAccepted {
+                // Signed-in launches go through the EULA check before Home
+                EulaGateView(
+                    onAccepted: {
+                        eulaAccepted = true
+                    },
+                    onDecline: {
+                        Task { await AuthService.shared.logout() }
+                        signOut()
+                    },
+                    onSessionExpired: {
+                        Task { await AuthService.shared.logout() }
+                        signOut()
+                    }
+                )
             } else if isLoggedIn {
                 HomeView(
                     onLogout: {
-                        isLoggedIn = false
+                        signOut()
                     },
                     onSessionExpired: {
-                        isLoggedIn = false
+                        signOut()
                     }
                 )
             } else {

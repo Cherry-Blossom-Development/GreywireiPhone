@@ -205,3 +205,121 @@ extension EulaSectionView where Content == Text {
         self.content = Text(body)
     }
 }
+
+// MARK: - EULA Gate
+
+/// The EULA accept step. Every signed-in launch passes through here before
+/// Home: the backend is asked whether this account has accepted the EULA
+/// (`GET /api/eula/status`), and if not, the user reads it and taps Accept
+/// (`POST /api/eula/accept`) or declines and is signed out. Same flow as the
+/// Prosaurus app, and as GreywireAndroid's `EulaGateScreen`.
+///
+/// If the status check fails for a reason other than a rejected token, the
+/// user is let through rather than locked out of the app (as Prosaurus does).
+struct EulaGateView: View {
+    let onAccepted: () -> Void
+    let onDecline: () -> Void
+    let onSessionExpired: () -> Void
+
+    @State private var isChecking = true
+    @State private var isAccepting = false
+    @State private var errorMessage: String?
+
+    var body: some View {
+        Group {
+            if isChecking {
+                ZStack {
+                    Color.greywireBg.ignoresSafeArea()
+                    ProgressView()
+                        .tint(Color.greywireCopper)
+                }
+            } else {
+                NavigationStack {
+                    EulaView()
+                        .navigationBarBackButtonHidden(true)
+                        .safeAreaInset(edge: .bottom, spacing: 0) {
+                            acceptFooter
+                        }
+                }
+            }
+        }
+        .task {
+            await checkStatus()
+        }
+    }
+
+    private var acceptFooter: some View {
+        VStack(spacing: 0) {
+            Rectangle()
+                .fill(Color.greywireLine)
+                .frame(height: 1)
+
+            VStack(spacing: 12) {
+                Text("Please read and accept the End User License Agreement to continue.")
+                    .font(.greywireCaption)
+                    .foregroundStyle(Color.greywireMuted)
+                    .multilineTextAlignment(.center)
+
+                if let errorMessage {
+                    Text(errorMessage)
+                        .font(.greywireCaption)
+                        .foregroundStyle(Color.greywireError)
+                        .multilineTextAlignment(.center)
+                        .accessibilityIdentifier("eula-error")
+                }
+
+                GreywireButton(
+                    title: "Accept These Terms",
+                    action: { Task { await accept() } },
+                    isLoading: isAccepting
+                )
+                .accessibilityIdentifier("eula-accept-button")
+
+                GreywireGhostButton(
+                    title: "Decline and sign out",
+                    action: onDecline,
+                    isEnabled: !isAccepting
+                )
+                .frame(maxWidth: .infinity)
+                .accessibilityIdentifier("eula-decline-button")
+            }
+            .padding(16)
+        }
+        .background(Color.greywireBg)
+    }
+
+    private func checkStatus() async {
+        let result = await APIClient.shared.getEulaStatus()
+        switch result {
+        case .success(let status):
+            if status.accepted {
+                onAccepted()
+            } else {
+                isChecking = false
+            }
+        case .error(_, let unauthorized):
+            if unauthorized {
+                onSessionExpired()
+            } else {
+                onAccepted()
+            }
+        }
+    }
+
+    private func accept() async {
+        isAccepting = true
+        errorMessage = nil
+        let result = await APIClient.shared.acceptEula()
+        isAccepting = false
+        switch result {
+        case .success:
+            onAccepted()
+        case .error(_, let unauthorized):
+            if unauthorized {
+                onSessionExpired()
+            } else {
+                errorMessage = "Couldn't save your acceptance. Please try again."
+            }
+        }
+    }
+}

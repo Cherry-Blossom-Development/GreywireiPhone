@@ -4,7 +4,7 @@ Things to address later, gathered while building the foundation (login and home,
 
 ## Accounts and auth
 
-- **EULA acceptance.** The Prosaurus app sends new users to an EULA screen after login. Greywire skips this entirely. Decide whether Greywire users must accept the same EULA, or a Greywire-specific one, and add the screen.
+- **EULA status on error.** If `/api/eula/status` fails, the Legal screen shows the EULA as "Accepted", so a user isn't shown a status they can't act on. That's misleading; consider an "Unknown" state in both apps.
 - **Sign up.** There's no way to create an account in the app yet. Prosaurus hashes the password client-side for signup; reuse that pattern.
 - **Forgot password.** Not built. The Prosaurus app has a forgot password flow using `/api/auth/forgot-password`.
 - **Guest accounts.** `/api/auth/me` returns `isGuest`, and guests can never be Greywire members. The app doesn't handle guests specially yet.

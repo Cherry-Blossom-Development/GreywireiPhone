@@ -25,6 +25,8 @@ Foundation built 2026-11-10: login and home screens matching GreywireAndroid.
 - **Login**: Brand, eyebrow, sign in heading, username/password fields with show/hide, error message, copper sign in button, version number. Validates session on app launch.
 - **Home**: Header with brand and sign out, hero section with username, membership card (member/not member states), pedal cards for Flashover and Switchyard.
 - **Session**: Opens on Home if token saved and valid; otherwise Login. 401 responses clear the session.
+- **Legal**: Home > Legal Documents shows the EULA's acceptance status and the Privacy Policy (`LegalView`, `EulaView`, `PrivacyPolicyView`).
+- **EULA accept step** (2026-11-16, matching GreywireAndroid): after login, and on launch with a saved session, `EulaGateView` (in `EulaView.swift`) checks `GET /api/eula/status` before Home. If it isn't accepted, the EULA is shown with "Accept These Terms" (`POST /api/eula/accept`) and "Decline and sign out". A 401 signs out; any other error lets the user through, as Prosaurus does. Identifiers: `eula-accept-button`, `eula-decline-button`, `eula-error`.
 - **Theme**: Dark only, Greywire color palette, Space Grotesk and IBM Plex Mono fonts.
 
 **Future work is tracked in `TODO.md`.**

@@ -20,13 +20,17 @@ Both apps should offer the same features; build a feature in one, then match it 
 
 ## Status
 
-Foundation built 2026-11-10: login and home screens matching GreywireAndroid.
+Foundation built 2026-11-10, feature parity with GreywireAndroid achieved 2026-11-21.
 
-- **Login**: Brand, eyebrow, sign in heading, username/password fields with show/hide, error message, copper sign in button, version number. Validates session on app launch.
-- **Home**: Header with brand and sign out, hero section with username, membership card (member/not member states), pedal cards for Flashover and Switchyard.
+- **Login**: Brand, eyebrow, sign in heading, username/password fields with show/hide, error message, copper sign in button, version number, "Forgot password?" and "Create an account" links. Validates session on app launch.
+- **Sign up** (2026-11-21): Create account with username, name, email, password. Client-side password hashing (SHA-256 with salt) matching Android/web. Navigates to EULA gate on success.
+- **Forgot password** (2026-11-21): Request password reset via email. Shows success confirmation with email and 1-hour expiry note.
+- **EULA accept step** (2026-11-16): after login/signup, and on launch with a saved session, `EulaGateView` checks `GET /api/eula/status` before Home. If it isn't accepted, the EULA is shown with "Accept These Terms" and "Decline and sign out".
+- **Navigation** (2026-11-21): Five bottom tabs matching Android: Home, Sessions, Chat, Friends, Profile. Sessions, Chat and Friends are placeholders; Profile shows username and Sign out. Full-screen modals for Claim Pedal and Legal Documents.
+- **Home**: Header with brand, hero section with username, membership card (member/not member states with claim pedal button), pedal cards for Flashover and Switchyard.
+- **Claim a pedal** (2026-11-21): Full-screen flow to claim pedals by serial number (`POST /api/greywire/claim`). Shows existing pedals if member, success/error states, and "Done" to return home.
+- **Legal**: Home > Legal Documents shows the EULA's acceptance status and the Privacy Policy.
 - **Session**: Opens on Home if token saved and valid; otherwise Login. 401 responses clear the session.
-- **Legal**: Home > Legal Documents shows the EULA's acceptance status and the Privacy Policy (`LegalView`, `EulaView`, `PrivacyPolicyView`).
-- **EULA accept step** (2026-11-16, matching GreywireAndroid): after login, and on launch with a saved session, `EulaGateView` (in `EulaView.swift`) checks `GET /api/eula/status` before Home. If it isn't accepted, the EULA is shown with "Accept These Terms" (`POST /api/eula/accept`) and "Decline and sign out". A 401 signs out; any other error lets the user through, as Prosaurus does. Identifiers: `eula-accept-button`, `eula-decline-button`, `eula-error`.
 - **Theme**: Dark only, Greywire color palette, Space Grotesk and IBM Plex Mono fonts.
 
 **Future work is tracked in `TODO.md`.**
@@ -60,12 +64,16 @@ Read these in `../GreywireAndroid` first: `CLAUDE.md`, `TODO.md`, and the Kotlin
 ### Backend API (same backend as Prosaurus; see `../iPhone/Breakroom/Services/APIClient.swift`)
 
 - `POST /api/auth/login` with `{ "handle", "password" }` returns `{ message, token }`. Save the token in the Keychain under a Greywire-specific service name, not the Prosaurus one.
+- `POST /api/auth/signup` with `{ "handle", "first_name", "last_name", "email", "hash", "salt" }` creates an account. Password is hashed client-side: SHA-256(password + salt).
+- `POST /api/auth/forgot-password` with `{ "email" }` sends a reset link. Always returns 200 (doesn't leak email registration status).
 - Send the token as `Authorization: Bearer <token>` and as a `jwtToken` cookie. If a response has an `X-New-Token` header, save the new token.
 - Send `X-Client-Platform: ios`. The backend accepts only `web`, `android` and `ios`, so this traffic is counted with Prosaurus for now (see `TODO.md` in GreywireAndroid).
 - `GET /api/auth/me` returns `{ username, userId, isGuest, greywireMember }`.
 - `GET /api/greywire/membership` returns `{ member, grantedAt, pedals: [{ id, model, serial, buildDate, claimedAt }] }`.
+- `POST /api/greywire/claim` with `{ "serial" }` claims a pedal and makes the user a member. Rate-limited to 10 failed attempts per hour.
+- `GET /api/eula/status` returns `{ accepted, notificationId, acceptedAt }`.
+- `POST /api/eula/accept` accepts the EULA.
 - `POST /api/auth/logout` signs out.
-- Not used yet: `POST /api/greywire/claim { serial }`.
 
 ### Visual design: match GreywireStudio-Website
 
@@ -92,7 +100,7 @@ Dark only. The colors are the site's `:root` variables:
 - Bundle ID `com.cherryblossomdev.greywire` (matching the Android applicationId), display name "Greywire", iOS 17+, and the same `DEVELOPMENT_TEAM` as `../iPhone/project.yml`.
 - Environments: copy `switch-env.sh` and `environments/` from `../iPhone`, writing `Config.swift`. The Simulator reaches a local backend at `http://localhost:3001` (the test backend). Production is `https://www.prosaurus.com`.
 - Allow plain HTTP only to localhost, and only in Debug.
-- Accessibility identifiers should match the Android test tags: `username-input`, `password-input`, `login-button`, `error-message`, `logout-button`, `home-title`, `membership-card`.
+- Accessibility identifiers should match the Android test tags: `username-input`, `password-input`, `login-button`, `error-message`, `logout-button`, `home-title`, `membership-card`, `claim-pedal-button`, `legal-card`, `forgot-password-link`, `create-account-link`, `signup-username-input`, `first-name-input`, `last-name-input`, `email-input`, `confirm-password-input`, `create-account-button`, `go-to-login-button`, `forgot-password-screen`, `send-reset-button`, `back-to-login-button`, `reset-sent-message`, `claim-screen`, `serial-input`, `claim-button`, `claim-error`, `claim-success`, `claim-done-button`, `eula-accept-button`, `eula-decline-button`, `eula-error`, `tab-home`, `tab-sessions`, `tab-chat`, `tab-friends`, `tab-profile`, `sessions-screen`, `chat-screen`, `friends-screen`, `profile-screen`.
 - Test users on the test backend: `testuser` / `TestPass123` and `testadmin` / `TestPass123`. Neither is a Greywire member, so "Not a member yet" is the state you'll see.
 
 When this is done, update this Status section, add a `TODO.md` like GreywireAndroid's, and keep the two apps feature-matched from then on.

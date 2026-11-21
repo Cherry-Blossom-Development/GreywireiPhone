@@ -1,17 +1,15 @@
 # GreywireiPhone - To Do
 
-Things to address later, gathered while building the foundation (login and home, 2026-11-10). When something here gets done, remove it, and match the change in GreywireAndroid.
+Things to address later, gathered while building the app. When something here gets done, remove it, and match the change in GreywireAndroid.
 
 ## Accounts and auth
 
 - **EULA status on error.** If `/api/eula/status` fails, the Legal screen shows the EULA as "Accepted", so a user isn't shown a status they can't act on. That's misleading; consider an "Unknown" state in both apps.
-- **Sign up.** There's no way to create an account in the app yet. Prosaurus hashes the password client-side for signup; reuse that pattern.
-- **Forgot password.** Not built. The Prosaurus app has a forgot password flow using `/api/auth/forgot-password`.
 - **Guest accounts.** `/api/auth/me` returns `isGuest`, and guests can never be Greywire members. The app doesn't handle guests specially yet.
 
 ## Greywire features
 
-- **Claim a pedal.** `POST /api/greywire/claim { serial }` already exists in the backend and makes the user a member. The home screen's "Not a member yet" card should lead to a claim flow (serial entry, and maybe a QR scan later). The backend rate-limits failed claims (10 per hour), so show its error messages.
+- **Claim via QR scan.** The claim pedal flow currently only supports manual serial entry. Add QR code scanning as an alternative.
 - **Pedal catalog from the backend.** The Flashover and Switchyard cards on Home are hard-coded text copied from the website. Move them to the backend once there's a pedal catalog, so the app, site and backend don't drift apart.
 - **Pedal illustrations.** The website has an SVG for each pedal (`../GreywireStudio-Website/img/*.svg`). Add them to the pedal cards.
 - **The real app features**: setlists, sounds, and talking to Switchyard (the website describes the phone setting up setlists and sounds that Switchyard stores). These are the core of the app and still need design.

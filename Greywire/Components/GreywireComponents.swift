@@ -221,6 +221,10 @@ struct GreywireTextField: View {
     @Binding var text: String
     var isSecure: Bool = false
     var isEnabled: Bool = true
+    var capitalization: TextInputAutocapitalization = .never
+    var autocorrection: Bool = false
+    var placeholder: String = ""
+    var isMonospaced: Bool = false
     @FocusState private var isFocused: Bool
     @State private var isPasswordVisible: Bool = false
 
@@ -233,14 +237,14 @@ struct GreywireTextField: View {
             HStack {
                 Group {
                     if isSecure && !isPasswordVisible {
-                        SecureField("", text: $text)
+                        SecureField(placeholder, text: $text)
                     } else {
-                        TextField("", text: $text)
+                        TextField(placeholder, text: $text)
                     }
                 }
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
-                .font(.greywireBody)
+                .textInputAutocapitalization(capitalization)
+                .autocorrectionDisabled(!autocorrection)
+                .font(isMonospaced ? .greywireMonoSmall : .greywireBody)
                 .foregroundStyle(Color.greywireText)
                 .focused($isFocused)
                 .disabled(!isEnabled)

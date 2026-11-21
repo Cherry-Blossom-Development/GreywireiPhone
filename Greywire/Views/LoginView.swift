@@ -6,6 +6,8 @@ struct LoginView: View {
     @FocusState private var focusedField: Field?
 
     let onLoginSuccess: (Int) -> Void
+    var onCreateAccount: (() -> Void)?
+    var onForgotPassword: (() -> Void)?
 
     enum Field {
         case handle, password
@@ -65,6 +67,20 @@ struct LoginView: View {
                 }
                 .accessibilityIdentifier("password-input")
 
+                // Forgot password link
+                if let onForgotPassword {
+                    Spacer().frame(height: 12)
+                    Button {
+                        onForgotPassword()
+                    } label: {
+                        Text("Forgot password?")
+                            .font(.greywireCaption)
+                            .foregroundStyle(Color.greywireCopper)
+                    }
+                    .disabled(viewModel.isLoading)
+                    .accessibilityIdentifier("forgot-password-link")
+                }
+
                 // Error message
                 if let error = viewModel.errorMessage {
                     Spacer().frame(height: 16)
@@ -87,6 +103,21 @@ struct LoginView: View {
                     isEnabled: !viewModel.isLoading
                 )
                 .accessibilityIdentifier("login-button")
+
+                // Create account link
+                if let onCreateAccount {
+                    Spacer().frame(height: 12)
+                    Button {
+                        onCreateAccount()
+                    } label: {
+                        Text("New to Greywire? Create an account")
+                            .font(.greywireBody)
+                            .foregroundStyle(Color.greywireCopper)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .disabled(viewModel.isLoading)
+                    .accessibilityIdentifier("create-account-link")
+                }
 
                 // Version number
                 Spacer().frame(height: 48)

@@ -24,12 +24,42 @@ actor APIClient {
         return await post("/api/auth/login", body: body)
     }
 
+    func signup(
+        handle: String,
+        firstName: String,
+        lastName: String,
+        email: String,
+        password: String
+    ) async -> AuthResult<LoginResponse> {
+        let salt = PasswordHasher.generateSalt()
+        let hash = PasswordHasher.hashPassword(password, salt: salt)
+        let body = SignupRequest(
+            handle: handle.trimmingCharacters(in: .whitespaces),
+            first_name: firstName.trimmingCharacters(in: .whitespaces),
+            last_name: lastName.trimmingCharacters(in: .whitespaces),
+            email: email.trimmingCharacters(in: .whitespaces),
+            hash: hash,
+            salt: salt
+        )
+        return await post("/api/auth/signup", body: body)
+    }
+
+    func forgotPassword(email: String) async -> AuthResult<LoginResponse> {
+        let body = ForgotPasswordRequest(email: email.trimmingCharacters(in: .whitespaces))
+        return await post("/api/auth/forgot-password", body: body)
+    }
+
     func getMe() async -> AuthResult<MeResponse> {
         await get("/api/auth/me", authenticated: true)
     }
 
     func getMembership() async -> AuthResult<MembershipResponse> {
         await get("/api/greywire/membership", authenticated: true)
+    }
+
+    func claimPedal(serial: String) async -> AuthResult<ClaimPedalResponse> {
+        let body = ClaimPedalRequest(serial: serial)
+        return await post("/api/greywire/claim", body: body, authenticated: true)
     }
 
     func logout() async {

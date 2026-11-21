@@ -74,6 +74,10 @@ actor APIClient {
         await post("/api/eula/accept", body: EmptyBody(), authenticated: true)
     }
 
+    func getBillingPlan() async -> AuthResult<BillingPlanResponse> {
+        await get("/api/billing/plan", authenticated: true)
+    }
+
     // MARK: - HTTP Methods
 
     private func get<T: Decodable>(_ path: String, authenticated: Bool = false) async -> AuthResult<T> {
@@ -133,6 +137,15 @@ actor APIClient {
             // Check status code
             if httpResponse.statusCode == 401 {
                 return .error("Unauthorized", unauthorized: true)
+            }
+
+            if httpResponse.statusCode == 402 {
+                // Payment required - subscription needed
+                if let errorResponse = try? decoder.decode(ErrorResponse.self, from: data),
+                   let message = errorResponse.message {
+                    return .error(message, requiresSubscription: true)
+                }
+                return .error("Subscription required", requiresSubscription: true)
             }
 
             guard (200...299).contains(httpResponse.statusCode) else {

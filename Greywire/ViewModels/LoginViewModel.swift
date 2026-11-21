@@ -33,7 +33,7 @@ final class LoginViewModel {
         case .success(let id):
             userId = id
             isSuccess = true
-        case .error(let message, _):
+        case .error(let message, _, _):
             errorMessage = message
         }
     }

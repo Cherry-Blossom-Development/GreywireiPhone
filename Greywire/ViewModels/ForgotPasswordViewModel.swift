@@ -36,7 +36,7 @@ final class ForgotPasswordViewModel {
         switch result {
         case .success:
             isSent = true
-        case .error(let message, _):
+        case .error(let message, _, _):
             errorMessage = message
         }
     }

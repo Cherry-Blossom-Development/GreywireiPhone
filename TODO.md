@@ -5,15 +5,17 @@ Things to address later, gathered while building the app. When something here ge
 ## Accounts and auth
 
 - **EULA status on error.** If `/api/eula/status` fails, the Legal screen shows the EULA as "Accepted", so a user isn't shown a status they can't act on. That's misleading; consider an "Unknown" state in both apps.
-- **Guest accounts.** `/api/auth/me` returns `isGuest`, and guests can never be Greywire members. The app doesn't handle guests specially yet.
 
 ## Greywire features
 
-- **Claim via QR scan.** The claim pedal flow currently only supports manual serial entry. Add QR code scanning as an alternative.
 - **Pedal catalog from the backend.** The Flashover and Switchyard cards on Home are hard-coded text copied from the website. Move them to the backend once there's a pedal catalog, so the app, site and backend don't drift apart.
 - **Pedal illustrations.** The website has an SVG for each pedal (`../GreywireStudio-Website/img/*.svg`). Add them to the pedal cards.
 - **The real app features**: setlists, sounds, and talking to Switchyard (the website describes the phone setting up setlists and sounds that Switchyard stores). These are the core of the app and still need design.
 - **Community.** The website links to `community.greywirestudio.com`. Decide which community features (chat and so on) come into the app.
+
+## Billing
+
+- **In-app purchase (StoreKit).** The paywall currently directs users to the website. Add StoreKit integration to allow subscribing directly in the app. This requires backend work to verify App Store receipts.
 
 ## Backend
 

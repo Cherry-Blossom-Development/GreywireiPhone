@@ -297,7 +297,7 @@ struct EulaGateView: View {
             } else {
                 isChecking = false
             }
-        case .error(_, let unauthorized):
+        case .error(_, let unauthorized, _):
             if unauthorized {
                 onSessionExpired()
             } else {
@@ -314,7 +314,7 @@ struct EulaGateView: View {
         switch result {
         case .success:
             onAccepted()
-        case .error(_, let unauthorized):
+        case .error(_, let unauthorized, _):
             if unauthorized {
                 onSessionExpired()
             } else {

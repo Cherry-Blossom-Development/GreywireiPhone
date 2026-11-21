@@ -8,6 +8,8 @@ final class HomeViewModel {
     var isLoading: Bool = false
     var errorMessage: String?
     var sessionExpired: Bool = false
+    /// Guest accounts can never be Greywire members.
+    var isGuest: Bool = false
 
     init() {
         // Load stored username immediately
@@ -26,7 +28,8 @@ final class HomeViewModel {
         switch meResult {
         case .success(let me):
             username = me.username
-        case .error(_, let unauthorized):
+            isGuest = me.isGuest ?? false
+        case .error(_, let unauthorized, _):
             if unauthorized {
                 isLoading = false
                 sessionExpired = true
@@ -43,7 +46,7 @@ final class HomeViewModel {
         switch membershipResult {
         case .success(let data):
             membership = data
-        case .error(let message, let unauthorized):
+        case .error(let message, let unauthorized, _):
             if unauthorized {
                 sessionExpired = true
             } else {

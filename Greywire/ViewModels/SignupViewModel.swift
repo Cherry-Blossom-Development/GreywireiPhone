@@ -53,7 +53,7 @@ final class SignupViewModel {
                 isLoading = false
                 errorMessage = "Account created, but no token was received. Try signing in."
             }
-        case .error(let message, _):
+        case .error(let message, _, _):
             isLoading = false
             errorMessage = message
         }

@@ -35,5 +35,7 @@
             </dict>
         </dict>
     </dict>
+    <key>NSCameraUsageDescription</key>
+    <string>Greywire uses the camera to scan QR codes on your pedals for quick serial number entry.</string>
 </dict>
 </plist>

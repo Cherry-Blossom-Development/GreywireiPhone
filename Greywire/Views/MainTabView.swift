@@ -6,10 +6,18 @@ struct MainTabView: View {
     @State private var selectedTab: GreywireTab = .home
     @State private var showClaimPedal = false
     @State private var showLegal = false
+    @State private var showPaywall = false
+    @State private var paywallMessage = ""
     @State private var homeViewModel = HomeViewModel()
 
     let onLogout: () -> Void
     let onSessionExpired: () -> Void
+
+    /// Show the paywall when a 402 response is received.
+    func showSubscriptionRequired(message: String) {
+        paywallMessage = message
+        showPaywall = true
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -62,6 +70,12 @@ struct MainTabView: View {
         }
         .fullScreenCover(isPresented: $showLegal) {
             LegalNavigationView(onBack: { showLegal = false })
+        }
+        .fullScreenCover(isPresented: $showPaywall) {
+            PaywallView(
+                message: paywallMessage,
+                onDismiss: { showPaywall = false }
+            )
         }
     }
 }
@@ -182,6 +196,13 @@ private struct MembershipCardContent: View {
                 ProgressView()
                     .tint(Color.greywireCopper)
                     .frame(maxWidth: .infinity, alignment: .center)
+            } else if viewModel.isGuest {
+                // Guest accounts can never be members
+                StatusPill(text: "Guest account")
+                Spacer().frame(height: 12)
+                Text("Guest accounts can't claim pedals or become Greywire members. Create a full account to unlock all features.")
+                    .font(.greywireBody)
+                    .foregroundStyle(Color.greywireMuted)
             } else if let membership = viewModel.membership {
                 if membership.member {
                     StatusPill(text: "Member", dotColor: .greywireSignal)

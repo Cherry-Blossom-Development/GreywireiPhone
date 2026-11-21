@@ -32,7 +32,7 @@ actor AuthService {
                 return .success(0)
             }
 
-        case .error(let message, let unauthorized):
+        case .error(let message, let unauthorized, _):
             return .error(message, unauthorized: unauthorized)
         }
     }
@@ -57,7 +57,7 @@ actor AuthService {
         switch result {
         case .success:
             return true
-        case .error(_, let unauthorized):
+        case .error(_, let unauthorized, _):
             if unauthorized {
                 await KeychainManager.shared.clearAll()
             }

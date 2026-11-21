@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ClaimPedalView: View {
     @State private var viewModel = ClaimPedalViewModel()
+    @State private var showScanner = false
     @FocusState private var serialFocused: Bool
 
     let onBack: () -> Void
@@ -16,7 +17,9 @@ struct ClaimPedalView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     Spacer().frame(height: 32)
 
-                    if let claimed = viewModel.claimedPedal {
+                    if viewModel.isGuest {
+                        GuestBlockedView(onBack: onBack)
+                    } else if let claimed = viewModel.claimedPedal {
                         ClaimedView(
                             pedal: claimed,
                             alreadyYours: viewModel.alreadyYours,
@@ -29,6 +32,9 @@ struct ClaimPedalView: View {
                             onClaim: {
                                 serialFocused = false
                                 Task { await viewModel.claim() }
+                            },
+                            onScanQR: {
+                                showScanner = true
                             }
                         )
                     }
@@ -54,6 +60,19 @@ struct ClaimPedalView: View {
         .onChange(of: viewModel.serial) { _, _ in
             viewModel.clearError()
         }
+        .fullScreenCover(isPresented: $showScanner) {
+            QRScannerView(
+                onCodeScanned: { code in
+                    showScanner = false
+                    viewModel.serial = code
+                    // Auto-claim after scanning
+                    Task { await viewModel.claim() }
+                },
+                onCancel: {
+                    showScanner = false
+                }
+            )
+        }
     }
 }
 
@@ -63,6 +82,7 @@ private struct ClaimFormView: View {
     let viewModel: ClaimPedalViewModel
     var serialFocused: FocusState<Bool>.Binding
     let onClaim: () -> Void
+    let onScanQR: () -> Void
 
     private var isMember: Bool { viewModel.membership?.member == true }
     private var heldPedals: [GreywirePedal] { viewModel.membership?.pedals ?? [] }
@@ -77,7 +97,7 @@ private struct ClaimFormView: View {
 
             Spacer().frame(height: 12)
 
-            Text("Every Greywire pedal comes with a free membership, with no subscription, for as long as you own it. Enter the pedal's serial number to add it to your account.")
+            Text("Every Greywire pedal comes with a free membership, with no subscription, for as long as you own it. Enter the pedal's serial number or scan its QR code.")
                 .font(.greywireBody)
                 .foregroundStyle(Color.greywireMuted)
 
@@ -140,11 +160,56 @@ private struct ClaimFormView: View {
             )
             .accessibilityIdentifier("claim-button")
 
+            Spacer().frame(height: 12)
+
+            // QR scan button
+            GreywireGhostButton(title: "Scan QR code") {
+                onScanQR()
+            }
+            .accessibilityIdentifier("scan-qr-button")
+
             Spacer().frame(height: 24)
 
             Text("Bought a pedal second-hand and it's already claimed? Contact support and we'll move it to your account.")
                 .font(.greywireCaption)
                 .foregroundStyle(Color.greywireMuted)
+        }
+    }
+}
+
+// MARK: - Guest Blocked View
+
+private struct GuestBlockedView: View {
+    let onBack: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Eyebrow("Guest account")
+            Text("Can't claim pedals")
+                .font(.greywireHeadline)
+                .foregroundStyle(Color.greywireText)
+                .accessibilityAddTraits(.isHeader)
+
+            Spacer().frame(height: 12)
+
+            Text("Guest accounts can't claim pedals or become Greywire members. Create a full account to unlock all features.")
+                .font(.greywireBody)
+                .foregroundStyle(Color.greywireMuted)
+
+            Spacer().frame(height: 24)
+
+            GreywireCard {
+                Text("To claim a pedal, sign out and create a new account with your email address. Your guest account data won't transfer.")
+                    .font(.greywireBody)
+                    .foregroundStyle(Color.greywireMuted)
+            }
+
+            Spacer().frame(height: 24)
+
+            GreywireButton(
+                title: "Go back",
+                action: onBack
+            )
         }
     }
 }

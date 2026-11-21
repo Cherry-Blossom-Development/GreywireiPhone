@@ -98,9 +98,27 @@ struct EulaAcceptResponse: Decodable, Sendable {
     let accepted: Bool
 }
 
+// MARK: - Billing Models
+
+struct BillingPlanResponse: Decodable, Sendable {
+    let subscribed: Bool
+    let platform: String?
+    let status: String?
+    let expiresAt: String?
+    let feePercent: Int
+    let greywire: MembershipResponse?
+
+    enum CodingKeys: String, CodingKey {
+        case subscribed, platform, status
+        case expiresAt = "expires_at"
+        case feePercent = "fee_percent"
+        case greywire
+    }
+}
+
 // MARK: - Auth Result
 
 enum AuthResult<T: Sendable>: Sendable {
     case success(T)
-    case error(String, unauthorized: Bool = false)
+    case error(String, unauthorized: Bool = false, requiresSubscription: Bool = false)
 }

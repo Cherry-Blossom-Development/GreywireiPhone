@@ -10,13 +10,28 @@ final class ClaimPedalViewModel {
     var claimedPedal: GreywirePedal?
     var alreadyYours: Bool = false
     var sessionExpired: Bool = false
+    /// Guest accounts can never claim pedals.
+    var isGuest: Bool = false
 
     func load() async {
+        // Check if user is a guest
+        let meResult = await APIClient.shared.getMe()
+        switch meResult {
+        case .success(let me):
+            isGuest = me.isGuest ?? false
+        case .error(_, let unauthorized, _):
+            if unauthorized {
+                sessionExpired = true
+                return
+            }
+        }
+
+        // Load membership
         let result = await APIClient.shared.getMembership()
         switch result {
         case .success(let response):
             membership = response
-        case .error(_, let unauthorized):
+        case .error(_, let unauthorized, _):
             if unauthorized {
                 sessionExpired = true
             }
@@ -49,7 +64,7 @@ final class ClaimPedalViewModel {
             membership = newMembership
             claimedPedal = pedal
             alreadyYours = heldBefore
-        case .error(let message, let unauthorized):
+        case .error(let message, let unauthorized, _):
             errorMessage = message
             if unauthorized {
                 sessionExpired = true

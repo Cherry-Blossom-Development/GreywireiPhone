@@ -28,9 +28,11 @@ Foundation built 2026-11-10, feature parity with GreywireAndroid achieved 2026-1
 - **EULA accept step** (2026-11-16): after login/signup, and on launch with a saved session, `EulaGateView` checks `GET /api/eula/status` before Home. If it isn't accepted, the EULA is shown with "Accept These Terms" and "Decline and sign out".
 - **Navigation** (2026-11-21): Five bottom tabs matching Android: Home, Sessions, Chat, Friends, Profile. Sessions, Chat and Friends are placeholders; Profile shows username and Sign out. Full-screen modals for Claim Pedal and Legal Documents.
 - **Home**: Header with brand, hero section with username, membership card (member/not member states with claim pedal button), pedal cards for Flashover and Switchyard.
-- **Claim a pedal** (2026-11-21): Full-screen flow to claim pedals by serial number (`POST /api/greywire/claim`). Shows existing pedals if member, success/error states, and "Done" to return home.
+- **Claim a pedal** (2026-11-21): Full-screen flow to claim pedals by serial number (`POST /api/greywire/claim`) or QR code scan. Shows existing pedals if member, success/error states, and "Done" to return home. Guest accounts see a message explaining they can't claim pedals.
+- **Paywall** (2026-11-21): When the backend returns 402 Payment Required, shows a paywall screen with current plan status, subscription benefits, and a note that in-app purchase is coming soon (currently directs to website).
+- **Guest accounts** (2026-11-21): Guest accounts are detected and shown a message explaining they can't claim pedals or become members.
 - **Legal**: Home > Legal Documents shows the EULA's acceptance status and the Privacy Policy.
-- **Session**: Opens on Home if token saved and valid; otherwise Login. 401 responses clear the session.
+- **Session**: Opens on Home if token saved and valid; otherwise Login. 401 responses clear the session. 402 responses can trigger the paywall.
 - **Theme**: Dark only, Greywire color palette, Space Grotesk and IBM Plex Mono fonts.
 
 **Future work is tracked in `TODO.md`.**
@@ -73,6 +75,7 @@ Read these in `../GreywireAndroid` first: `CLAUDE.md`, `TODO.md`, and the Kotlin
 - `POST /api/greywire/claim` with `{ "serial" }` claims a pedal and makes the user a member. Rate-limited to 10 failed attempts per hour.
 - `GET /api/eula/status` returns `{ accepted, notificationId, acceptedAt }`.
 - `POST /api/eula/accept` accepts the EULA.
+- `GET /api/billing/plan` returns `{ subscribed, platform, status, expires_at, fee_percent, greywire }`. Used in the paywall to show current subscription status.
 - `POST /api/auth/logout` signs out.
 
 ### Visual design: match GreywireStudio-Website

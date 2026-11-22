@@ -161,6 +161,31 @@ actor APIClient {
         }
     }
 
+    // MARK: - Sessions
+
+    func getSessions() async -> AuthResult<SessionsListResponse> {
+        await get("/api/sessions", authenticated: true)
+    }
+
+    func getBandMemberSessions() async -> AuthResult<SessionsListResponse> {
+        await get("/api/sessions/band-members", authenticated: true)
+    }
+
+    func getSession(id: Int) async -> AuthResult<Session> {
+        // The API returns the session directly
+        await get("/api/sessions/\(id)", authenticated: true)
+    }
+
+    func rateSession(id: Int, rating: Int?) async -> AuthResult<SessionRatingResponse> {
+        let body = RateSessionRequest(rating: rating)
+        return await post("/api/sessions/\(id)/rate", body: body, authenticated: true)
+    }
+
+    /// Get the stream URL for a session (requires auth headers when fetching)
+    func getSessionStreamURL(id: Int) -> URL? {
+        URL(string: "\(Config.baseURL)/api/sessions/\(id)/stream")
+    }
+
     // MARK: - HTTP Methods
 
     private func get<T: Decodable>(_ path: String, authenticated: Bool = false) async -> AuthResult<T> {

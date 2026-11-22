@@ -259,6 +259,65 @@ struct ChatActionResponse: Decodable, Sendable {
     let message: String?
 }
 
+// MARK: - Sessions Models
+
+/// A recording session.
+struct Session: Decodable, Identifiable, Hashable, Sendable {
+    let id: Int
+    let name: String?
+    let s3Key: String?
+    let fileSize: Int?
+    let mimeType: String?
+    let uploadedAt: String?
+    let recordedAt: String?
+    let sessionType: String?
+    let bandId: Int?
+    let bandName: String?
+    let instrumentId: Int?
+    let instrumentName: String?
+    let durationMs: Int?
+    let avgRating: Double?
+    let ratingCount: Int?
+    let myRating: Int?
+    let shortlistCount: Int?
+    let uploaderHandle: String?
+
+    var displayName: String {
+        name ?? "Untitled Session"
+    }
+
+    var formattedDuration: String {
+        guard let ms = durationMs, ms > 0 else { return "--:--" }
+        let totalSeconds = ms / 1000
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
+        return String(format: "%d:%02d", minutes, seconds)
+    }
+
+    var typeLabel: String {
+        switch sessionType {
+        case "band": return "Band"
+        case "individual": return "Solo"
+        case "mashup": return "Mashup"
+        default: return "Recording"
+        }
+    }
+}
+
+struct SessionsListResponse: Decodable, Sendable {
+    let sessions: [Session]
+}
+
+struct SessionRatingResponse: Decodable, Sendable {
+    let avgRating: Double?
+    let ratingCount: Int?
+    let myRating: Int?
+}
+
+struct RateSessionRequest: Encodable, Sendable {
+    let rating: Int?
+}
+
 // MARK: - Auth Result
 
 enum AuthResult<T: Sendable>: Sendable {

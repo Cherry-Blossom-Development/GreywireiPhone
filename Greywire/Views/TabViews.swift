@@ -74,18 +74,7 @@ struct GreywireTabBar: View {
     }
 }
 
-// MARK: - Placeholder Tab Screens
-
-struct SessionsTabView: View {
-    var body: some View {
-        PlaceholderTabView(
-            title: "Sessions",
-            heading: "Your recordings",
-            text: "Band practices and your own takes, ready to play back, rate and share.",
-            testTag: "sessions-screen"
-        )
-    }
-}
+// MARK: - Profile Tab Screen
 
 struct ProfileTabView: View {
     let username: String?
@@ -125,44 +114,6 @@ struct ProfileTabView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.greywireBg)
         .accessibilityIdentifier("profile-screen")
-    }
-}
-
-// MARK: - Placeholder Tab View Helper
-
-private struct PlaceholderTabView: View {
-    let title: String
-    let heading: String
-    let text: String
-    let testTag: String
-
-    var body: some View {
-        VStack(spacing: 0) {
-            TabTopBar(title: title)
-
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    Spacer().frame(height: 24)
-
-                    Eyebrow("Coming soon")
-                    SectionHeading(heading)
-
-                    Spacer().frame(height: 16)
-
-                    GreywireCard {
-                        Text(text)
-                            .font(.greywireBody)
-                            .foregroundStyle(Color.greywireMuted)
-                    }
-
-                    Spacer().frame(height: 24)
-                }
-                .padding(.horizontal, 16)
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.greywireBg)
-        .accessibilityIdentifier(testTag)
     }
 }
 

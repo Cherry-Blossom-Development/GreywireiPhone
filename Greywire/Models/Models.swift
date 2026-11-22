@@ -116,6 +116,76 @@ struct BillingPlanResponse: Decodable, Sendable {
     }
 }
 
+// MARK: - Friends Models
+
+/// A friend in the user's friends list.
+struct Friend: Decodable, Identifiable, Sendable {
+    let id: Int
+    let handle: String
+    let firstName: String?
+    let lastName: String?
+    let photoPath: String?
+    let friendsSince: String?
+    let isOnline: Bool?
+
+    var displayName: String {
+        if let first = firstName, let last = lastName, !first.isEmpty || !last.isEmpty {
+            return "\(first) \(last)".trimmingCharacters(in: .whitespaces)
+        }
+        return handle
+    }
+}
+
+/// An incoming friend request.
+struct FriendRequest: Decodable, Identifiable, Sendable {
+    let id: Int
+    let handle: String
+    let firstName: String?
+    let lastName: String?
+    let photoPath: String?
+    let requestedAt: String?
+
+    var displayName: String {
+        if let first = firstName, let last = lastName, !first.isEmpty || !last.isEmpty {
+            return "\(first) \(last)".trimmingCharacters(in: .whitespaces)
+        }
+        return handle
+    }
+}
+
+/// An outgoing friend request the user has sent.
+struct SentFriendRequest: Decodable, Identifiable, Sendable {
+    let id: Int
+    let handle: String
+    let firstName: String?
+    let lastName: String?
+    let photoPath: String?
+    let requestedAt: String?
+
+    var displayName: String {
+        if let first = firstName, let last = lastName, !first.isEmpty || !last.isEmpty {
+            return "\(first) \(last)".trimmingCharacters(in: .whitespaces)
+        }
+        return handle
+    }
+}
+
+struct FriendsListResponse: Decodable, Sendable {
+    let friends: [Friend]
+}
+
+struct FriendRequestsResponse: Decodable, Sendable {
+    let requests: [FriendRequest]
+}
+
+struct SentRequestsResponse: Decodable, Sendable {
+    let sent: [SentFriendRequest]
+}
+
+struct FriendActionResponse: Decodable, Sendable {
+    let message: String?
+}
+
 // MARK: - Auth Result
 
 enum AuthResult<T: Sendable>: Sendable {

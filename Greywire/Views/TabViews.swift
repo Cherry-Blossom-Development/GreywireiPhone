@@ -98,17 +98,6 @@ struct ChatTabView: View {
     }
 }
 
-struct FriendsTabView: View {
-    var body: some View {
-        PlaceholderTabView(
-            title: "Friends",
-            heading: "Your people",
-            text: "Find other Greywire musicians, send requests and see who's around.",
-            testTag: "friends-screen"
-        )
-    }
-}
-
 struct ProfileTabView: View {
     let username: String?
     let onLogout: () -> Void

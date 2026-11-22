@@ -78,6 +78,44 @@ actor APIClient {
         await get("/api/billing/plan", authenticated: true)
     }
 
+    // MARK: - Friends
+
+    func getFriends() async -> AuthResult<FriendsListResponse> {
+        await get("/api/friends", authenticated: true)
+    }
+
+    func getFriendRequests() async -> AuthResult<FriendRequestsResponse> {
+        await get("/api/friends/requests", authenticated: true)
+    }
+
+    func getSentRequests() async -> AuthResult<SentRequestsResponse> {
+        await get("/api/friends/sent", authenticated: true)
+    }
+
+    func sendFriendRequest(userId: Int) async -> AuthResult<FriendActionResponse> {
+        await post("/api/friends/request/\(userId)", body: EmptyBody(), authenticated: true)
+    }
+
+    func acceptFriendRequest(userId: Int) async -> AuthResult<FriendActionResponse> {
+        await post("/api/friends/accept/\(userId)", body: EmptyBody(), authenticated: true)
+    }
+
+    func declineFriendRequest(userId: Int) async -> AuthResult<FriendActionResponse> {
+        await post("/api/friends/decline/\(userId)", body: EmptyBody(), authenticated: true)
+    }
+
+    func cancelFriendRequest(userId: Int) async -> AuthResult<FriendActionResponse> {
+        await delete("/api/friends/request/\(userId)", authenticated: true)
+    }
+
+    func removeFriend(userId: Int) async -> AuthResult<FriendActionResponse> {
+        await delete("/api/friends/\(userId)", authenticated: true)
+    }
+
+    func markFriendRequestsSeen() async -> AuthResult<FriendActionResponse> {
+        await post("/api/friends/mark-seen", body: EmptyBody(), authenticated: true)
+    }
+
     // MARK: - HTTP Methods
 
     private func get<T: Decodable>(_ path: String, authenticated: Bool = false) async -> AuthResult<T> {
@@ -86,6 +124,10 @@ actor APIClient {
 
     private func post<T: Decodable, B: Encodable>(_ path: String, body: B, authenticated: Bool = false) async -> AuthResult<T> {
         await request(path, method: "POST", body: body, authenticated: authenticated)
+    }
+
+    private func delete<T: Decodable>(_ path: String, authenticated: Bool = false) async -> AuthResult<T> {
+        await request(path, method: "DELETE", body: nil as EmptyBody?, authenticated: authenticated)
     }
 
     private func request<T: Decodable, B: Encodable>(

@@ -36,7 +36,7 @@ struct MainTabView: View {
                 case .chat:
                     ChatTabView()
                 case .friends:
-                    FriendsTabView()
+                    FriendsView(onSessionExpired: onSessionExpired)
                 case .profile:
                     ProfileTabView(username: homeViewModel.username) {
                         Task {

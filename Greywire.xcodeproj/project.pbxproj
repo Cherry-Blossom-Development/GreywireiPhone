@@ -11,6 +11,7 @@
 		04C7313B30D0F605C093E79E /* ClaimPedalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CDDCAA1EF0721C1025AF31 /* ClaimPedalViewModel.swift */; };
 		06FB1F999F6297A1128B1F94 /* spacegrotesk_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC26D390E280410A4E47A656 /* spacegrotesk_medium.ttf */; };
 		0808C40E9F41E7A3CDBE0EE1 /* GreywireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84807226478CD410128CF3CF /* GreywireApp.swift */; };
+		0AFBE526967BAF34B170E580 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D60E18D1E333349791802D /* FriendsView.swift */; };
 		156D4D05B0ACD7B8E70EFE70 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92484777CA3B65E7498DCD36 /* SignupViewModel.swift */; };
 		17C9ACAC4B116F8CD432FEBE /* plexmono_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2277046C12B5E080764808FE /* plexmono_regular.ttf */; };
 		240EA65E09538A0DF5771093 /* ClaimPedalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FC6DD4C3D6608C26C5CB7F /* ClaimPedalView.swift */; };
@@ -26,6 +27,7 @@
 		5E2DF6ADFF322C9A889EC7DA /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0737F976819F1553DC4C01F7 /* LegalView.swift */; };
 		6542E16FAAB85F2069568AE6 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4B11DF890E7930C8B8116 /* SignupView.swift */; };
 		66DFCC059C0C17B07779D398 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B48F6DBC00783C5806A05A /* PaywallView.swift */; };
+		66EF46BE341794573F843DBA /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D980A0A60C3C0514F5E2C4A2 /* FriendsViewModel.swift */; };
 		928E39C2601CA3994F939928 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B4B671BFFCC75079921849 /* LoginView.swift */; };
 		A06EE9058E5541B963094ACC /* spacegrotesk_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06BE117E89F9E1824F2970D9 /* spacegrotesk_bold.ttf */; };
 		A511F755030D954D99052DA5 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A75EE70DD072EA14CB241F9 /* QRScannerView.swift */; };
@@ -42,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04D60E18D1E333349791802D /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		06BE117E89F9E1824F2970D9 /* spacegrotesk_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = spacegrotesk_bold.ttf; sourceTree = "<group>"; };
 		0737F976819F1553DC4C01F7 /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
 		12B94426664653E472D8F36A /* EulaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EulaView.swift; sourceTree = "<group>"; };
@@ -72,6 +75,7 @@
 		CA28A82B549072FF40474C04 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		D1091BBB3CE4202E9A82FEE2 /* spacegrotesk_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = spacegrotesk_regular.ttf; sourceTree = "<group>"; };
 		D525D333E9269ADFBA87F449 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		D980A0A60C3C0514F5E2C4A2 /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
 		DAD4B11DF890E7930C8B8116 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		DC26D390E280410A4E47A656 /* spacegrotesk_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = spacegrotesk_medium.ttf; sourceTree = "<group>"; };
 		E8DA4996FC7C34773660A245 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -113,6 +117,7 @@
 				B8FC6DD4C3D6608C26C5CB7F /* ClaimPedalView.swift */,
 				12B94426664653E472D8F36A /* EulaView.swift */,
 				615DD7E0A1C821CDE7EF02C6 /* ForgotPasswordView.swift */,
+				04D60E18D1E333349791802D /* FriendsView.swift */,
 				99D1B633FDD3E073DB715296 /* HomeView.swift */,
 				0737F976819F1553DC4C01F7 /* LegalView.swift */,
 				F6B4B671BFFCC75079921849 /* LoginView.swift */,
@@ -156,6 +161,7 @@
 			children = (
 				B0CDDCAA1EF0721C1025AF31 /* ClaimPedalViewModel.swift */,
 				6AB0BD15A73D7AC9D82E1444 /* ForgotPasswordViewModel.swift */,
+				D980A0A60C3C0514F5E2C4A2 /* FriendsViewModel.swift */,
 				21E650786E4288925DC4A714 /* HomeViewModel.swift */,
 				4E2C43CBC2D80A1FF8602B1A /* LoginViewModel.swift */,
 				92484777CA3B65E7498DCD36 /* SignupViewModel.swift */,
@@ -284,6 +290,8 @@
 				D76C3869CF1AFAF710CE7933 /* EulaView.swift in Sources */,
 				C0DBCFF24D8852FE13F7FE0E /* ForgotPasswordView.swift in Sources */,
 				2BF15206FB50EC08D968F864 /* ForgotPasswordViewModel.swift in Sources */,
+				0AFBE526967BAF34B170E580 /* FriendsView.swift in Sources */,
+				66EF46BE341794573F843DBA /* FriendsViewModel.swift in Sources */,
 				0808C40E9F41E7A3CDBE0EE1 /* GreywireApp.swift in Sources */,
 				F2ADD35FC7B5C4E4238BFFB4 /* GreywireComponents.swift in Sources */,
 				58C4AA2C13639ABAC774A09F /* HomeView.swift in Sources */,

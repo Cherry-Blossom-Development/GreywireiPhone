@@ -186,6 +186,79 @@ struct FriendActionResponse: Decodable, Sendable {
     let message: String?
 }
 
+// MARK: - Chat Models
+
+/// A chat room (group chat or DM).
+struct ChatRoom: Decodable, Identifiable, Hashable, Sendable {
+    let id: Int
+    let name: String?
+    let description: String?
+    let type: String?
+    let isActive: Bool?
+    let isDefault: Bool?
+    let discoverable: Bool?
+    let ownerId: Int?
+    let ownerHandle: String?
+    let createdAt: String?
+
+    // For DMs
+    let partnerId: Int?
+    let partnerHandle: String?
+    let unreadCount: Int?
+    let lastMessage: String?
+    let lastMessageAt: String?
+
+    var displayName: String {
+        if type == "dm", let partner = partnerHandle {
+            return partner
+        }
+        return name ?? "Chat"
+    }
+}
+
+/// A chat message.
+struct ChatMessage: Decodable, Identifiable, Sendable {
+    let id: Int
+    let message: String?
+    let imagePath: String?
+    let videoPath: String?
+    let createdAt: String?
+    let isScheduled: Bool?
+    let userId: Int?
+    let handle: String?
+
+    var hasMedia: Bool {
+        imagePath != nil || videoPath != nil
+    }
+}
+
+struct ChatRoomsResponse: Decodable, Sendable {
+    let rooms: [ChatRoom]
+}
+
+struct ChatDMsResponse: Decodable, Sendable {
+    let dms: [ChatRoom]
+}
+
+struct ChatMessagesResponse: Decodable, Sendable {
+    let messages: [ChatMessage]
+    let hasMore: Bool?
+}
+
+struct SendMessageRequest: Encodable, Sendable {
+    let message: String
+}
+
+struct SendMessageResponse: Decodable, Sendable {
+    let id: Int?
+    let message: String?
+    let createdAt: String?
+}
+
+struct ChatActionResponse: Decodable, Sendable {
+    let message: String?
+}
+
 // MARK: - Auth Result
 
 enum AuthResult<T: Sendable>: Sendable {

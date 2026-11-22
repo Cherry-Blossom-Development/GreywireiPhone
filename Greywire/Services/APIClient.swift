@@ -116,6 +116,51 @@ actor APIClient {
         await post("/api/friends/mark-seen", body: EmptyBody(), authenticated: true)
     }
 
+    // MARK: - Chat
+
+    func getChatRooms() async -> AuthResult<ChatRoomsResponse> {
+        await get("/api/chat/rooms", authenticated: true)
+    }
+
+    func getDirectMessages() async -> AuthResult<ChatDMsResponse> {
+        await get("/api/chat/dms", authenticated: true)
+    }
+
+    func getChatMessages(roomId: Int, limit: Int = 50, before: String? = nil) async -> AuthResult<ChatMessagesResponse> {
+        var path = "/api/chat/rooms/\(roomId)/messages?limit=\(limit)"
+        if let before {
+            path += "&before=\(before)"
+        }
+        return await get(path, authenticated: true)
+    }
+
+    func sendChatMessage(roomId: Int, message: String) async -> AuthResult<ChatMessage> {
+        let body = SendMessageRequest(message: message)
+        return await post("/api/chat/rooms/\(roomId)/messages", body: body, authenticated: true)
+    }
+
+    func markChatRoomRead(roomId: Int) async -> AuthResult<ChatActionResponse> {
+        await post("/api/chat/rooms/\(roomId)/mark-read", body: EmptyBody(), authenticated: true)
+    }
+
+    func startDirectMessage(userId: Int) async -> AuthResult<ChatRoom> {
+        struct StartDMRequest: Encodable { let userId: Int }
+        let body = StartDMRequest(userId: userId)
+
+        // The API returns { room: ChatRoom } but we decode the wrapper
+        struct StartDMResponse: Decodable {
+            let room: ChatRoom
+        }
+
+        let result: AuthResult<StartDMResponse> = await post("/api/chat/dm", body: body, authenticated: true)
+        switch result {
+        case .success(let response):
+            return .success(response.room)
+        case .error(let message, let unauthorized, let requiresSubscription):
+            return .error(message, unauthorized: unauthorized, requiresSubscription: requiresSubscription)
+        }
+    }
+
     // MARK: - HTTP Methods
 
     private func get<T: Decodable>(_ path: String, authenticated: Bool = false) async -> AuthResult<T> {

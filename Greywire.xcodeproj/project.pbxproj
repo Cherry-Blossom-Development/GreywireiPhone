@@ -15,6 +15,7 @@
 		156D4D05B0ACD7B8E70EFE70 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92484777CA3B65E7498DCD36 /* SignupViewModel.swift */; };
 		17C9ACAC4B116F8CD432FEBE /* plexmono_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2277046C12B5E080764808FE /* plexmono_regular.ttf */; };
 		240EA65E09538A0DF5771093 /* ClaimPedalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FC6DD4C3D6608C26C5CB7F /* ClaimPedalView.swift */; };
+		249E81B1BA599083193DFDCF /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86063B65B9B63A7A38B61640 /* ChatViewModel.swift */; };
 		25EA43F7D1928BE704E7B56C /* spacegrotesk_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1091BBB3CE4202E9A82FEE2 /* spacegrotesk_regular.ttf */; };
 		27C0049203D8EC02F286EADD /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D525D333E9269ADFBA87F449 /* Models.swift */; };
 		2BF15206FB50EC08D968F864 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB0BD15A73D7AC9D82E1444 /* ForgotPasswordViewModel.swift */; };
@@ -41,6 +42,7 @@
 		EBBF2A32D1D864563456C604 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF80D3305621C291908EFAA /* Config.swift */; };
 		F07C12FF1966BD257A37C351 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339E986576650C9E11F072 /* AuthService.swift */; };
 		F2ADD35FC7B5C4E4238BFFB4 /* GreywireComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A3A16D5F2B9D0E0793E31 /* GreywireComponents.swift */; };
+		FAF603053303897DF6006295 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89AD18CDDAAC0D05056A7C2 /* ChatView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,7 @@
 		82973A6B40D6E120FC16C577 /* TabViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViews.swift; sourceTree = "<group>"; };
 		84807226478CD410128CF3CF /* GreywireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreywireApp.swift; sourceTree = "<group>"; };
 		859E286FA1D0B1412645C376 /* Greywire.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Greywire.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		86063B65B9B63A7A38B61640 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		92484777CA3B65E7498DCD36 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		99D1B633FDD3E073DB715296 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9A75EE70DD072EA14CB241F9 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
@@ -71,6 +74,7 @@
 		AE95C49CA8B1FD52D702AAFA /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		B0021B53B57AA3507D13AAF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B0CDDCAA1EF0721C1025AF31 /* ClaimPedalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimPedalViewModel.swift; sourceTree = "<group>"; };
+		B89AD18CDDAAC0D05056A7C2 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		B8FC6DD4C3D6608C26C5CB7F /* ClaimPedalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimPedalView.swift; sourceTree = "<group>"; };
 		CA28A82B549072FF40474C04 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		D1091BBB3CE4202E9A82FEE2 /* spacegrotesk_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = spacegrotesk_regular.ttf; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 		4592263EE820B383240B28AB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B89AD18CDDAAC0D05056A7C2 /* ChatView.swift */,
 				B8FC6DD4C3D6608C26C5CB7F /* ClaimPedalView.swift */,
 				12B94426664653E472D8F36A /* EulaView.swift */,
 				615DD7E0A1C821CDE7EF02C6 /* ForgotPasswordView.swift */,
@@ -159,6 +164,7 @@
 		83FE026E289D61DE1D34BF22 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				86063B65B9B63A7A38B61640 /* ChatViewModel.swift */,
 				B0CDDCAA1EF0721C1025AF31 /* ClaimPedalViewModel.swift */,
 				6AB0BD15A73D7AC9D82E1444 /* ForgotPasswordViewModel.swift */,
 				D980A0A60C3C0514F5E2C4A2 /* FriendsViewModel.swift */,
@@ -283,6 +289,8 @@
 			files = (
 				DC05E8FECA4644485A12A133 /* APIClient.swift in Sources */,
 				F07C12FF1966BD257A37C351 /* AuthService.swift in Sources */,
+				FAF603053303897DF6006295 /* ChatView.swift in Sources */,
+				249E81B1BA599083193DFDCF /* ChatViewModel.swift in Sources */,
 				240EA65E09538A0DF5771093 /* ClaimPedalView.swift in Sources */,
 				04C7313B30D0F605C093E79E /* ClaimPedalViewModel.swift in Sources */,
 				4EFB5E446C8E7D72C0E91606 /* Colors.swift in Sources */,

@@ -34,7 +34,7 @@ struct MainTabView: View {
                 case .sessions:
                     SessionsTabView()
                 case .chat:
-                    ChatTabView()
+                    ChatView(onSessionExpired: onSessionExpired)
                 case .friends:
                     FriendsView(onSessionExpired: onSessionExpired)
                 case .profile:

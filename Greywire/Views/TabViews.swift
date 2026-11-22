@@ -87,17 +87,6 @@ struct SessionsTabView: View {
     }
 }
 
-struct ChatTabView: View {
-    var body: some View {
-        PlaceholderTabView(
-            title: "Chat",
-            heading: "Rooms and messages",
-            text: "Talk with the Greywire community and message your bandmates.",
-            testTag: "chat-screen"
-        )
-    }
-}
-
 struct ProfileTabView: View {
     let username: String?
     let onLogout: () -> Void

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" width="200" height="300" font-family="Arial, Helvetica, sans-serif">
+  <title>Switchyard control pedal (illustration)</title>
+  <defs>
+    <linearGradient id="sy-body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3d5b6e"/>
+      <stop offset="1" stop-color="#253a47"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="188" height="288" rx="16" fill="url(#sy-body)" stroke="#16242d" stroke-width="2"/>
+
+  <!-- Song.part readout -->
+  <rect x="34" y="40" width="132" height="54" rx="6" fill="#0d1114" stroke="#16242d" stroke-width="2"/>
+  <text x="100" y="80" font-family="Consolas, 'Courier New', monospace" font-size="34" font-weight="700" fill="#ff5a3c" text-anchor="middle" letter-spacing="4">03.2</text>
+  <g font-size="7.5" fill="#cfe0ea" text-anchor="middle" letter-spacing="1.5">
+    <text x="78" y="108">SONG</text>
+    <text x="133" y="108">PART</text>
+  </g>
+
+  <text x="100" y="150" font-size="18" font-weight="700" fill="#eef5f9" text-anchor="middle" letter-spacing="3">SWITCHYARD</text>
+  <text x="100" y="165" font-size="7.5" fill="#cfe0ea" text-anchor="middle" letter-spacing="2.5">GREYWIRE · LINEWORK</text>
+
+  <!-- Footswitch LEDs: Up was just pressed -->
+  <circle cx="58" cy="206" r="3.5" fill="#16242d"/>
+  <circle cx="142" cy="206" r="3.5" fill="#5fd38a"/>
+  <circle cx="142" cy="206" r="8" fill="#5fd38a" fill-opacity="0.25"/>
+
+  <!-- Down and Up footswitches -->
+  <circle cx="58" cy="246" r="20" fill="#b7bcc2" stroke="#6b7076" stroke-width="2"/>
+  <circle cx="58" cy="246" r="13" fill="#d7dbe0" stroke="#8a8f95"/>
+  <circle cx="142" cy="246" r="20" fill="#b7bcc2" stroke="#6b7076" stroke-width="2"/>
+  <circle cx="142" cy="246" r="13" fill="#d7dbe0" stroke="#8a8f95"/>
+  <g font-size="8" fill="#cfe0ea" text-anchor="middle" letter-spacing="1.5">
+    <text x="58" y="282">DOWN</text>
+    <text x="142" y="282">UP</text>
+  </g>
+</svg>

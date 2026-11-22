@@ -20,7 +20,7 @@ Both apps should offer the same features; build a feature in one, then match it 
 
 ## Status
 
-Foundation built 2026-11-10, feature parity with GreywireAndroid achieved 2026-11-21.
+Foundation built 2026-11-10, feature parity with GreywireAndroid achieved 2026-11-21, polish pass 2026-11-22.
 
 - **Login**: Brand, eyebrow, sign in heading, username/password fields with show/hide, error message, copper sign in button, version number, "Forgot password?" and "Create an account" links. Validates session on app launch.
 - **Sign up** (2026-11-21): Create account with username, name, email, password. Client-side password hashing (SHA-256 with salt) matching Android/web. Navigates to EULA gate on success.
@@ -30,13 +30,14 @@ Foundation built 2026-11-10, feature parity with GreywireAndroid achieved 2026-1
 - **Friends** (2026-11-22): Full friends feature with friends list (with online status), incoming friend requests with accept/decline, sent requests with cancel option. Pull-to-refresh support. Uses `/api/friends`, `/api/friends/requests`, `/api/friends/sent`, and action endpoints.
 - **Chat** (2026-11-22): Chat rooms and direct messages. Room list with descriptions and unread badges, DM list with last message preview. Room detail view with messages, send message input, and load more pagination. Uses `/api/chat/rooms`, `/api/chat/dms`, `/api/chat/rooms/:id/messages`, and message endpoints.
 - **Sessions** (2026-11-22): Recording sessions with playback and rating. User's own sessions and band members' sessions in separate tabs. Session detail view with audio player, 1-10 rating picker, and metadata. Uses `/api/sessions`, `/api/sessions/band-members`, and rating endpoints.
-- **Home**: Header with brand, hero section with username, membership card (member/not member states with claim pedal button), pedal cards for Flashover and Switchyard.
+- **Home**: Header with brand, hero section with username, membership card (member/not member states with claim pedal button), pedal cards for Flashover and Switchyard with illustrations.
 - **Claim a pedal** (2026-11-21): Full-screen flow to claim pedals by serial number (`POST /api/greywire/claim`) or QR code scan. Shows existing pedals if member, success/error states, and "Done" to return home. Guest accounts see a message explaining they can't claim pedals.
 - **Paywall** (2026-11-21): When the backend returns 402 Payment Required, shows a paywall screen with current plan status, subscription benefits, and a note that in-app purchase is coming soon (currently directs to website).
 - **Guest accounts** (2026-11-21): Guest accounts are detected and shown a message explaining they can't claim pedals or become members.
 - **Legal**: Home > Legal Documents shows the EULA's acceptance status and the Privacy Policy.
 - **Session**: Opens on Home if token saved and valid; otherwise Login. 401 responses clear the session. 402 responses can trigger the paywall.
 - **Theme**: Dark only, Greywire color palette, Space Grotesk and IBM Plex Mono fonts.
+- **Tablet/landscape** (2026-11-22): Content areas constrained to max 632pt width for readability on larger screens.
 
 **Future work is tracked in `TODO.md`.**
 

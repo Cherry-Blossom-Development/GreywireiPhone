@@ -39,6 +39,8 @@ struct ChatView: View {
                             Spacer().frame(height: 24)
                         }
                         .padding(.horizontal, 16)
+                        .frame(maxWidth: 632, alignment: .center)
+                        .frame(maxWidth: .infinity)
                     }
                     .refreshable {
                         await viewModel.load()
@@ -348,6 +350,8 @@ struct ChatRoomView: View {
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)
+                    .frame(maxWidth: 632, alignment: .center)
+                    .frame(maxWidth: .infinity)
                 }
                 .onChange(of: viewModel.messages.count) { _, _ in
                     if let last = viewModel.messages.last {

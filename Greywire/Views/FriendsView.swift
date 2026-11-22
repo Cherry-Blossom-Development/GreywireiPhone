@@ -37,6 +37,8 @@ struct FriendsView: View {
                         Spacer().frame(height: 24)
                     }
                     .padding(.horizontal, 16)
+                    .frame(maxWidth: 632, alignment: .center)
+                    .frame(maxWidth: .infinity)
                 }
                 .refreshable {
                     await viewModel.load()

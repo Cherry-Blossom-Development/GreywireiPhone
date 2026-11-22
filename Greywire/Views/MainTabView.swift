@@ -169,6 +169,8 @@ private struct HomeTabContent: View {
                     Spacer().frame(height: 24)
                 }
                 .padding(.horizontal, 16)
+                .frame(maxWidth: 632, alignment: .center)
+                .frame(maxWidth: .infinity)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -268,19 +270,32 @@ private struct PedalInfoCard: View {
 
     var body: some View {
         GreywireCard {
-            Text(pedal.name)
-                .font(.greywireTitle)
-                .foregroundStyle(Color.greywireText)
-            Spacer().frame(height: 2)
-            Text(pedal.type)
-                .font(.greywireMonoSmall)
-                .foregroundStyle(Color.greywireMuted)
-            Spacer().frame(height: 10)
-            Text(pedal.blurb)
-                .font(.greywireBody)
-                .foregroundStyle(Color.greywireMuted)
-            Spacer().frame(height: 14)
-            StatusPill(text: pedal.status)
+            HStack(alignment: .top, spacing: 16) {
+                // Pedal illustration
+                if let imageName = pedal.imageName {
+                    Image(imageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 80, height: 120)
+                }
+
+                // Text content
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(pedal.name)
+                        .font(.greywireTitle)
+                        .foregroundStyle(Color.greywireText)
+                    Spacer().frame(height: 2)
+                    Text(pedal.type)
+                        .font(.greywireMonoSmall)
+                        .foregroundStyle(Color.greywireMuted)
+                    Spacer().frame(height: 10)
+                    Text(pedal.blurb)
+                        .font(.greywireBody)
+                        .foregroundStyle(Color.greywireMuted)
+                    Spacer().frame(height: 14)
+                    StatusPill(text: pedal.status)
+                }
+            }
         }
     }
 }
@@ -314,6 +329,7 @@ private struct PedalInfo: Identifiable {
     let type: String
     let blurb: String
     let status: String
+    let imageName: String?
 }
 
 private let LineworkPedals = [
@@ -321,12 +337,14 @@ private let LineworkPedals = [
         name: "Flashover",
         type: "Analog distortion / overdrive",
         blurb: "A classic op-amp distortion with a tone control, soft or hard clipping, and knobs Switchyard can set for you.",
-        status: "Prototyping"
+        status: "Prototyping",
+        imageName: "flashover"
     ),
     PedalInfo(
         name: "Switchyard",
         type: "Control pedal",
         blurb: "Two footswitches, a song and part readout, and a direct connection to your phone. The brain of the board.",
-        status: "Design"
+        status: "Design",
+        imageName: "switchyard"
     )
 ]
